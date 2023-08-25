@@ -1,31 +1,27 @@
-#!/bin/ruby
+#!/bin/crystal
 
 def run(cmd, arg)
    stdout = IO::Memory.new
    stderr = IO::Memory.new
    signal = Process.run(cmd, args: arg, output: stdout, error: stderr)
-
    return signal, stdout
 end
 
 def draw_bar(clvl)
-
+   i,j = 0
    lvl = clvl.to_i
    floor = (lvl.to_i*20/100).round
-
-   i = 0
    print "["
    while i < floor
       print "\u2588"
       i += 1
    end
-   y = i
-   while y < 20
+   j = i
+   while j < 20
       print "\u2591"
-      y += 1
+      j += 1
    end
    print "]"
-   print " "
 end
 
 def print_info(clvl, status)
@@ -46,8 +42,8 @@ signal, status = run(cmd, fstat)
 signal = signal.to_s.to_i
 status = status.to_s.strip
 
-draw_bar(clvl)
 print_info(clvl, status)
+draw_bar(clvl)
 puts "\n"
 
 exit 0
