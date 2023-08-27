@@ -1,5 +1,5 @@
 # CBAT-Crystal
-A simple Crystal program to display current battery information, made with the idea of having little to no dependencies and being easy to understand and modify.
+A simple Crystal program to display current battery information, made with the idea of having little to no dependencies and being easy to understand and modify. The battery name will be displayed alongside a simple ascii bar, charge percentage and current state, like so:
 
 `<BAT0>  [████░░░░░░░░░░░░░░░░] [21%] [Discharging]`
 
