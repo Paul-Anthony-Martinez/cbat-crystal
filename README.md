@@ -23,5 +23,5 @@ All the information is gathered from the ```/sys/class/power_supply/BAT*/capacit
 3. When finished editing, build the program (follow the build steps).
 4. Give the program execution permission by running ```chmod +x cbat```.
 5. You can edit your ```~/.bashrc``` file and place an alias to run the script wherever it's placed like ```alias cbat=/home/<username>/Downloads/./cbat```
-6. Source the ```.bashrc```file: ```source .bashrc```.
+6. Source the ```.bashrc```file: ```source ~/.bashrc```.
 7. Try running: `cbat`
