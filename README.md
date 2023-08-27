@@ -16,3 +16,12 @@ At the current version, none.
 
 # Where is the data gathered from?
 All the information is gathered from the ```/sys/class/power_supply/BAT*/capacity``` and ```/sys/class/power_supply/BAT*/status``` files. If your system saves the battery information in another directory, you might want to change the variable ```supply_dir``` to the right directory for your system.
+
+# How to run your cbat.cr file
+1. Save the file with: ```.cr```extension or place a shebang for crystal in the first line of the file such as ```#!/bin/crystal```.
+2. Run the file with: ```crystal cbat.cr```
+3. When finished editing, build the program (follow the build steps).
+4. Give the program execution permission by running ```chmod +x cbat```.
+5. You can edit your ```~/.bashrc``` file and place an alias to run the script wherever it's placed like ```alias cbat=/home/<username>/Downloads/./cbat```
+6. Source the ```.bashrc```file: ```source .bashrc```.
+7. Try running: `cbat`
