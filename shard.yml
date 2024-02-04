@@ -1,0 +1,14 @@
+name: cbat
+version: 0.1.0
+
+authors:
+  - Antonio Martinez <pablo17pamg@duck.com>
+  - Emanuel Avilés <>
+
+targets:
+  cbat:
+    main: src/cbat.cr
+
+crystal: '>= 1.10.1'
+
+license: MIT
