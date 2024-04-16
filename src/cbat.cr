@@ -1,8 +1,7 @@
-require "dir"
 require "./res/parse_args.cr"
 
 class Cbat
-   def initialize( @props : Properties ) end
+   def initialize(@props : Properties)end
    @supply_dir = "/sys/class/power_supply/"
    @files_list = [] of String
    @cap_paths = [] of String
@@ -44,6 +43,7 @@ class Cbat
          i += 1
       end
    end
+   # Iterates over each battery, calculates the needed filling chars given the width.
    def create_bars()
       i = 0
       @files_list.each do |line|
@@ -51,41 +51,88 @@ class Cbat
          floor = (capacity * @props.@spaces / 100).round()
          bar = ""
          b = 0
+
+         if @props.@color
+            bar += "#{@props.@fill_color}"
+         end
+
          while b < floor
-            bar += "#{@props.@fill_color}#{@props.@fill_char}\e[0m"
+            bar += "#{@props.@fill_char}"
             b += 1
          end
+
+         if @props.@color
+            bar += "\e[0m"
+         end
+
+         if @props.@color
+            bar += "#{@props.@empty_color}"
+         end
+
          while b < @props.@spaces
-            bar += "#{@props.@empty_color}#{@props.@empty_char}\e[0m"
+            bar += "#{@props.@empty_char}"
             b += 1
          end
+
+         if @props.@color
+            bar += "\e[0m"
+         end
+
          @bat_bars << bar
          i += 1
       end
    end
+   # Iterates over each battery and checks the format string token by 
+   # token for potencial substitutions signaled by a % symbol
+   # similar to GNU date, ex: date +"%D %H:%M" => 03/20/24 01:28
    def display_data()
-      i = 0
-      @files_list.each do |line|
-         print("#{line}#{@props.item_separator}")
-         print("[#{@bat_bars[i].strip()}]#{@props.item_separator}")
-         print("[#{@bat_capacity[i].strip()}%]#{@props.item_separator}")
-         print("[#{@bat_status[i].strip()}]")
-         i += 1
+      str = @props.@format
+      tk = str.strip()
+      tk_arr = tk.chars()
+      out_str = ""
+
+      j = 0
+      while j < @files_list.size()
+         i = 0
+         while i < tk_arr.size()
+            if tk_arr[i] === '%'
+               if !tk_arr[i+1].nil?
+                  if tk_arr[i + 1] === 'n'
+                     out_str += @files_list[j].strip()
+                  elsif tk_arr[i + 1] === 'b'
+                     out_str += @bat_bars[j].strip()
+                  elsif tk_arr[i + 1] === 'p'
+                     out_str += "#{@bat_capacity[j].strip()}\%"
+                  elsif tk_arr[i + 1] === 'c'
+                     out_str += @bat_status[j].strip()
+                  end
+                  i += 1
+               end
+            else
+               out_str += tk_arr[i]
+            end
+            i += 1
+         end
+         j += 1
       end
-      print "\n"
+      puts out_str
    end
-end
-
-struct Properties
-   property spaces = 20
-   property item_separator = ""
-   property fill_char = "\u2588"
-   property fill_color = "\e[32m"
-   property empty_char = "\u2591"
-   property empty_color = "\e[31m"
-end 
-
-props = Properties.new
-parse = Parser.new
-props = parse.parse_args(props)
-cbat = Cbat.new(props).run()
+   end
+   # Stores the default values for the arguments that can be set through dashed options.
+   struct Properties
+      property spaces = 20 #=> Width of the bar.
+      property color = false #=> Whether the output must include color or not.
+      property options = /[nbc]/ #=> Perl compatible expression for flags.
+      property format = "[%n][%p][%b][%c]" #=> Default output format.
+      property fill_char = "\u2588" #=> █.
+      property fill_color = "\e[32m" #=> Green.
+      property empty_char = "\u2591" #=> ░.
+      property empty_color = "\e[31m" #=> Red.
+   end
+   # Instanciates a struct with the default values to run.
+   props = Properties.new()
+   # Instances and runs the parser script to get arguments and return them as a struct.
+   parser = Parser.new()
+   props = parser.parse_args(props)
+   # Instances Cbat and runs its methods in order.
+   cbat = Cbat.new(props).run()
