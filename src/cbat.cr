@@ -1,4 +1,4 @@
-require "./res/parse_args.cr"
+require "./parse_args.cr"
 
 class Cbat
    def initialize(@props : Properties)end
@@ -43,7 +43,6 @@ class Cbat
          i += 1
       end
    end
-   # Iterates over each battery, calculates the needed filling chars given the width.
    def create_bars()
       i = 0
       @files_list.each do |line|
@@ -82,9 +81,6 @@ class Cbat
          i += 1
       end
    end
-   # Iterates over each battery and checks the format string token by 
-   # token for potencial substitutions signaled by a % symbol
-   # similar to GNU date, ex: date +"%D %H:%M" => 03/20/24 01:28
    def display_data()
       str = @props.@format
       tk = str.strip()
@@ -117,22 +113,20 @@ class Cbat
       end
       puts out_str
    end
-   end
-   # Stores the default values for the arguments that can be set through dashed options.
-   struct Properties
-      property spaces = 20 #=> Width of the bar.
-      property color = false #=> Whether the output must include color or not.
-      property options = /[nbc]/ #=> Perl compatible expression for flags.
-      property format = "[%n][%p][%b][%c]" #=> Default output format.
-      property fill_char = "\u2588" #=> █.
-      property fill_color = "\e[32m" #=> Green.
-      property empty_char = "\u2591" #=> ░.
-      property empty_color = "\e[31m" #=> Red.
-   end
-   # Instanciates a struct with the default values to run.
-   props = Properties.new()
-   # Instances and runs the parser script to get arguments and return them as a struct.
-   parser = Parser.new()
-   props = parser.parse_args(props)
-   # Instances Cbat and runs its methods in order.
-   cbat = Cbat.new(props).run()
+end
+
+struct Properties
+   property spaces = 20 
+   property color = false 
+   property options = /[nbc]/
+   property format = "[%n][%p][%b][%c]"
+   property fill_char = "\u2588"
+   property fill_color = "\e[32m"
+   property empty_char = "\u2591"
+   property empty_color = "\e[31m"
+end
+
+props = Properties.new()
+parser = Parser.new()
+props = parser.parse_args(props)
+cbat = Cbat.new(props).run()
