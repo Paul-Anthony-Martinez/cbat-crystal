@@ -1,2 +1,7 @@
-mkdir bin
-crystal build src/cbat.cr -o bin/cbat --release --error-trace -s -p -t --verbose --no-debug
+#!/bin/sh
+
+if [ ! -d "./bin" ]
+then
+	mkdir bin
+fi
+crystal build src/cbat.cr -o bin/cbat --release --error-trace -s -p -t --verbose --no-debug -O3
