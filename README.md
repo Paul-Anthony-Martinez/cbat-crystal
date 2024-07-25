@@ -3,15 +3,22 @@ A simple Crystal program to display current battery information, made with the i
 
 `<BAT0>  [████░░░░░░░░░░░░░░░░] [21%] [Discharging]`
 
-# How to build cbat yourself
+# How to build cbat yourself 
+You can compile the `cbat` either through `shards` or with the `compile` script included in the project. Shards is the Crystal way of building while `compile` is a simple shell script to build `cbat` as minimal as posible.
+
 1. Clone this repository and check the source code in the 'src' and 'src/res' directories.
 2. Modify to your liking and save it.
-3. Make sure you have crystal installed in your system:
+3. Make sure you have crystal installed in your system by running:
    ```crystal --version```
+Building with `shards`:
 4. To build it, run the following command:
    ```shards build```
-5. Go to the 'bin' directory created in the project and run 'cbat'.
-Note: Remember to give execution permission to cbat: chmod +x cbat.
+Building with `compile`:
+4. Run:
+	```sh compile``` or ```./compile```.
+5. Go to the 'bin' directory created inside the project and run ```./cbat```.
+
+Note: Remember to give execution permissions to cbat: ```chmod +x cbat```.
 
 # Dependencies
 At the current version, none.
@@ -19,11 +26,10 @@ At the current version, none.
 # Where is the data gathered from?
 All the information is gathered from the ```/sys/class/power_supply/BAT*/capacity``` and ```/sys/class/power_supply/BAT*/status``` files. If your system saves the battery information in another directory, you might want to change the class attribute ```@supply_dir``` to the right directory for your system.
 
-# How to run your cbat.cr file
-1. Save the file with: ```.cr```extension or place a shebang for crystal in the first line of the file such as ```#!/bin/crystal```.
-2. Run the file with: ```crystal cbat.cr```
-3. When finished editing, build the program (follow the build steps).
-4. Give the program execution permission by running ```chmod +x cbat```.
-5. You can edit your ```~/.bashrc``` file and place an alias to run the script wherever it's placed like ```alias cbat=/home/<username>/Downloads/./cbat```
-6. Source the ```.bashrc```file: ```source ~/.bashrc```.
-7. Try running: `cbat`.
+# How to run your cbat file
+a. You can make a soft link to the cbat executable. Run in the terminal:
+	```ln -s /absolute/path/to/cbat/ /usr/local/bin```
+b. Place an alias in your `~/.bashrc` file. Just add the line:
+	```alias cbat='/path/to/cbat/'```
+	then, save and quit. Source it:
+	```source ~/.bashrc```
