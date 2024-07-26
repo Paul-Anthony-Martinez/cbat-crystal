@@ -4,7 +4,8 @@ A simple Crystal program to display current battery information, made with the i
 `<BAT0>  [████░░░░░░░░░░░░░░░░] [21%] [Discharging]`
 
 # How to build cbat yourself 
-You can compile the `cbat` either through `shards` or with the `compile` script included in the project. Shards is the Crystal way of building while `compile` is a simple shell script to build `cbat` as minimal as posible.
+You can compile the `cbat` either through `shards` or with the `compile` script included in the project. 
+Shards is the Crystal way of building while `compile` is a simple shell script to build `cbat` as minimal as posible.
 
 1. Clone this repository and check the source code in the 'src' and 'src/res' directories.
 2. Modify to your liking and save it.
@@ -24,7 +25,8 @@ Note: Remember to give execution permissions to cbat: ```chmod +x cbat```.
 At the current version, none.
 
 # Where is the data gathered from?
-All the information is gathered from the ```/sys/class/power_supply/BAT*/capacity``` and ```/sys/class/power_supply/BAT*/status``` files. If your system saves the battery information in another directory, you might want to change the class attribute ```@supply_dir``` to the right directory for your system.
+All the information is gathered from the ```/sys/class/power_supply/BAT*/capacity``` and ```/sys/class/power_supply/BAT*/status``` files. 
+If your system saves the battery information in another directory, you might want to change the class attribute ```@supply_dir``` to the right directory for your system.
 
 # How to run your cbat file
 a. You can make a soft link to the cbat executable. Run in the terminal:
