@@ -24,6 +24,12 @@ class Parser
                   \n  cbat -w 15 or cbat -w 15 -s '[%n][%b]: %c'"
             exit 0
          end
+			parser.on "--fill-char=_char", info.fill_char do |_char|
+				props.fill_char = _char.to_s().strip();
+			end
+			parser.on "--empty-char=_char", info.empty_char do |_char|
+				props.empty_char = _char.to_s().strip();
+			end
          parser.on "-v", "--version", info.version do
             print info.credits
             exit 0
