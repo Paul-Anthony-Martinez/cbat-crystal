@@ -9,13 +9,16 @@ class Cbat
    @bat_capacity = [] of String
    @bat_status = [] of String
    @bat_bars = [] of String
+	# Once called, runs the class methods in order
    def run()
       list_batteries()
       get_values()
       create_bars()
       display_data()
    end
-   def list_batteries()
+   # Looks for directories assigned to batteries in /sys/class/power_supply
+	# Creates the path to the capacity and status files inside each one.
+	def list_batteries()
       files = Dir.children(@supply_dir)
       files.each do |line|
          if /BAT*/.match(line)
@@ -27,7 +30,8 @@ class Cbat
          @stat_paths << @supply_dir + file + "/status"
       end
    end
-   def get_values()
+   # Reads /sys/class/power_supply/capacity and status for each battery
+	def get_values()
       capacity = ""
       status = ""
       i = 0
@@ -43,7 +47,9 @@ class Cbat
          i += 1
       end
    end
-   def create_bars()
+   # For each battery rounds its percentage and fills a string that contains the bar characters.
+	# applies color if enabled.
+	def create_bars()
       i = 0
       @files_list.each do |line|
          capacity = @bat_capacity[i].to_i()
@@ -81,7 +87,10 @@ class Cbat
          i += 1
       end
    end
-   def display_data()
+   
+	# Loops through each char in the format string and appends
+	# the corresponding values into an array to print.
+	def display_data()
       str = @props.@format
       tk = str.strip()
       tk_arr = tk.chars()
@@ -112,18 +121,21 @@ class Cbat
          j += 1
       end
       puts out_str
+		puts @props.fill_char
+		puts @props.empty_char
    end
 end
 
+# Holds variables to control the output
+# an instance is sent to the arguments parser
 struct Properties
-   property spaces = 20 
-   property color = false 
-   property options = /[nbc]/
-   property format = "[%n][%p][%b][%c]"
-   property fill_char = "\u2588"
-   property fill_color = "\e[32m"
-   property empty_char = "\u2591"
-   property empty_color = "\e[31m"
+   property spaces = 20 # Amount of characters the bar will have
+   property color = false # Enables a colored bar
+   property format = "[%n][%p][%b][%c]" # Default output format: [name][percentage][ascii bar][status]
+	property fill_char = "\u2588" # Unicode for a full block █
+   property fill_color = "\e[32m" # Color green
+   property empty_char = "\u2591" # Unicode for a light shade block ░
+   property empty_color = "\e[31m" # Color red
 end
 
 props = Properties.new()
