@@ -17,18 +17,14 @@ class Parser
          end
          parser.on "-h", "--help", info.help do
             STDOUT.puts parser
-            puts "\nExample:\
-                  \nProduce the following output: [BAT0][███████████████████░]: Charging\
-                  \n  cbat -s '[%n][%b]: %c'\
-                  \nPrint the current battery status with a width of 15 characters:\
-                  \n  cbat -w 15 or cbat -w 15 -s '[%n][%b]: %c'"
-            exit 0
+            puts info.examples
+				exit 0
          end
-			parser.on "--fill-char=_char", info.fill_char do |_char|
-				props.fill_char = _char.to_s().strip();
+			parser.on "--fill-char=_char", info.fill_char do |_fchar|
+				props.fill_char = _fchar;
 			end
-			parser.on "--empty-char=_char", info.empty_char do |_char|
-				props.empty_char = _char.to_s().strip();
+			parser.on "--empty-char=_char", info.empty_char do |_echar|
+				props.empty_char = _echar.to_s().strip();
 			end
          parser.on "-v", "--version", info.version do
             print info.credits
