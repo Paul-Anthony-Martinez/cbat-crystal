@@ -121,8 +121,6 @@ class Cbat
          j += 1
       end
       puts out_str
-		puts @props.fill_char
-		puts @props.empty_char
    end
 end
 
