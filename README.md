@@ -10,7 +10,7 @@ Shards is the Crystal way of building while `compile` is a simple shell script t
 1. Clone this repository and check the source code in the 'src' and 'src/res' directories.
 2. Modify to your liking and save it.
 3. Make sure you have crystal installed in your system by running:
-   ```crystal --version```
+   ```crystal --version```.
 Building with `shards`:
 4. To build it, run the following command:
    ```shards build```
