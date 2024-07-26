@@ -1,7 +1,14 @@
 #!/bin/sh
-
+# If the bin directory for our binary doesn't exist, create it
 if [ ! -d "./bin" ]
 then
 	mkdir bin
 fi
-crystal build src/cbat.cr -o bin/cbat --release --error-trace -s -p -t --verbose --no-debug -O3
+
+# Build the project for release, without debug, using O3 optimizations, verbose compilation
+crystal build src/cbat.cr \
+		  -o bin/cbat \
+		  --release --no-debug -O3 \
+		  --error-trace \
+		  --stats --progress --time \
+		  --verbose 
