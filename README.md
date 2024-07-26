@@ -31,7 +31,7 @@ If your system saves the battery information in another directory, you might wan
 # How to run your cbat file
 a. You can make a soft link to the cbat executable. Run in the terminal:
 	```ln -s /absolute/path/to/cbat/ /usr/local/bin```
-b. Place an alias in your `~/.bashrc` file. Just add the line:
+ b. Place an alias in your `~/.bashrc` file. Just add the line:
 	```alias cbat='/path/to/cbat/'```
 	then, save and quit. Source it:
 	```source ~/.bashrc```
