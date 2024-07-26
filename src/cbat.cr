@@ -139,4 +139,5 @@ end
 props = Properties.new()
 parser = Parser.new()
 props = parser.parse_args(props)
-cbat = Cbat.new(props).run()
+cbat = Cbat.new(props)
+cbat.run()
