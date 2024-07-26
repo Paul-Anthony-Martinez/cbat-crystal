@@ -9,8 +9,12 @@ struct Information
    \nbe returned. Variables are specified with a % and a letter:\
    \n\t'%b' for the bar\t'%p' for percentage\
    \n\t'%n' for battery name\t'%s' for charging status."
+	property fill_char = "Sets the character to be used to represent filled spaces \ 
+	in the bar."
+	property empty_char = "Sets the character to be used to represent empty spaces \ 
+	in the bar."
    property help = "Display this help menu."
    property version = "Display the current installed version of CBat."
-   property credits = "CBAT 0.1 (13.4.2024)\n\nProgrammed by \
+   property credits = "CBAT 0.5 (25.7.2024)\nProgrammed by: \
    Pablo Martínez & Emanuel Avilés.\n"
 end
