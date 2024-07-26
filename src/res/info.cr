@@ -13,6 +13,11 @@ struct Information
 	in the bar."
 	property empty_char = "Sets the character to be used to represent empty spaces \ 
 	in the bar."
+	property examples = "\nExample:\
+                  \nProduce the following output: [BAT0][███████████████████░]: Charging\
+                  \n  cbat -s '[%n][%b]: %c'\
+                  \nPrint the current battery status with a width of 15 characters:\
+                  \n  cbat -w 15 or cbat -w 15 -s '[%n][%b]: %c'"
    property help = "Display this help menu."
    property version = "Display the current installed version of CBat."
    property credits = "CBAT 0.5 (25.7.2024)\nProgrammed by: \
